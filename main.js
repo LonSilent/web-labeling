@@ -1,6 +1,6 @@
 function saveTextAsFile()
 {
-	var textToWrite = document.getElementById("fileDisplayArea").value;
+	var textToWrite = document.getElementById("inputTextToSave").value;
 	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
 	var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
 
@@ -26,24 +26,20 @@ function saveTextAsFile()
 	downloadLink.click();
 }
 
-window.onload = function() {
-		var fileInput = document.getElementById('fileInput');
-		var fileDisplayArea = document.getElementById('fileDisplayArea');
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
 
-		fileInput.addEventListener('change', function(e) {
-			var file = fileInput.files[0];
-			var textType = /text.*/;
+function loadFileAsText()
+{
+	var fileToLoad = document.getElementById("fileToLoad").files[0];
 
-			if (file.type.match(textType)) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					fileDisplayArea.innerText = reader.result;
-				}
-
-				reader.readAsText(file);	
-			} else {
-				fileDisplayArea.innerText = "File not supported!"
-			}
-		});
+	var fileReader = new FileReader();
+	fileReader.onload = function(fileLoadedEvent) 
+	{
+		var textFromFileLoaded = fileLoadedEvent.target.result;
+		document.getElementById("inputTextToSave").value = textFromFileLoaded;
+	};
+	fileReader.readAsText(fileToLoad, "UTF-8");
 }
