@@ -3,36 +3,73 @@
 
 <head>
 	<title>Web Labeling</title>
-	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body class="page-wrapper">
-	<table>
-		<tr>
-			<td colspan="3">
-				<textarea id="inputTextToSave" style="width:512px;height:256px"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>另存新檔:</td>
-			<td>
-				<input id="inputFileNameToSaveAs"></input>
-			</td>
-			<td>
-				<button onclick="saveTextAsFile()">存檔</button>
-			</td>
-		</tr>
-		<tr>
-			<td>選擇一個檔案:</td>
-			<td>
-				<input type="file" id="fileToLoad">
-			</td>
-			<td>
-				<button onclick="loadFileAsText()">讀檔</button>
-				<td>
-		</tr>
-	</table>
-	<script src="main.js"></script>
+	<nav>
+		<div class="nav-wrapper">
+			<a class="brand-logo">Web Labeling</a>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col s12">
+				<textarea id="inputTextToSave" style="height:200px"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s3">
+				<p>人物</p>
+				<textarea id="name"></textarea>
+			</div>
+			<div class="col s3">
+				<p>地點</p>
+				<textarea id="location"></textarea>
+			</div>
+			<div class="col s3">
+				<p>日期</p>
+				<textarea></textarea>
+			</div>
+			<div class="col s3">
+				<p>官階</p>
+				<textarea></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<p>選擇一個檔案:</p>
+				<!-- <input type="file" id="fileToLoad"> -->
+				<div class="row valign-wrapper">
+					<div class="col s8">
+						<div class="file-field input-field" style="margin-top: 0;">
+							<div class="btn">
+								<span>選擇</span>
+								<input type="file" id="fileToLoad">
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text">
+							</div>
+						</div>
+					</div>
+					<div class="col s4 valign">
+						<button class="btn waves-effect waves-light" onclick="loadFileAsText()">讀檔</button>
+					</div>
+				</div>
+			</div>
+			<div class="col s6">
+				<p>另存新檔:</p>
+				<input id="inputFileNameToSaveAs">.txt
+				<button class="btn waves-effect waves-light" onclick="saveTextAsFile()">存檔</button>
+			</div>
+		</div>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script scr="js/materialize.min.js"></script>
+		<script src="js/main.js"></script>
+	</div>
 </body>
 
 </html>
