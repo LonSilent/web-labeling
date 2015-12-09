@@ -45,15 +45,12 @@ function loadFileAsText() {
 	var fileReader = new FileReader();
 	fileReader.onload = function(fileLoadedEvent) {
 		var textFromFileLoaded = fileLoadedEvent.target.result;
-<<<<<<< HEAD
 		$("#inputTextToSave").text(textFromFileLoaded.toString());
-=======
-		document.getElementById("inputTextToSave").innerHTML = textFromFileLoaded;
->>>>>>> LonSilent/master
+
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
 
 function highlight() {
-	$('#inputTextToSave').highlight('get_user');
+	$('#inputTextToSave').highlight('8');
 }

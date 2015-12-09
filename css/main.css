@@ -11,7 +11,6 @@ html {
 	font-family: Arial, Droid Sans Fallback, "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", "標楷體", DFKai-SB, sans-serif;
 }
 
-
 h1 {
 	margin-top: 0;
 }
@@ -28,4 +27,11 @@ img {
 
 .highlight {
 	background-color: yellow;
+}
+
+#inputTextToSave {
+	height: 170px;
+	overflow-y: auto;
+	border: 1px solid #BDBDBD;
+	white-space: pre-line;
 }
