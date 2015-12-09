@@ -16,13 +16,13 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div class="row" style="margin-top: 20px;">
+		<div class="row" style="margin: 20px 0 0 0;">
 			<div class="col s12">
 				<h5>文字區</h5>
 				<p id="inputTextToSave"></p>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="margin-bottom: 0;">
 			<div class="col s3">
 				<p>人物</p>
 				<textarea id="name"></textarea>
@@ -33,11 +33,11 @@
 			</div>
 			<div class="col s3">
 				<p>日期</p>
-				<textarea></textarea>
+				<textarea id="date"></textarea>
 			</div>
 			<div class="col s3">
 				<p>官階</p>
-				<textarea></textarea>
+				<textarea id="official"></textarea>
 			</div>
 		</div>
 		<div class="row">
@@ -62,14 +62,9 @@
 				</div>
 			</div>
 			<div class="col s6">
-				<div class="row">
-					<p>另存新檔:</p>
-					<input id="inputFileNameToSaveAs">.txt
-					<button class="btn waves-effect waves-light" style="margin-left: 10px;" onclick="saveTextAsFile()">存檔</button>
-					<div class="col s3">
-						<button class="btn waves-effect waves-light" onclick="highlight_name()">亮</button>
-					</div>
-				</div>
+				<p>另存新檔:</p>
+				<input id="inputFileNameToSaveAs">.txt
+				<button class="btn waves-effect waves-light" style="margin-left: 10px;" onclick="saveTextAsFile()">存檔</button>
 			</div>
 		</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
