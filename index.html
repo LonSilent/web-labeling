@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="row" style="margin-top: 20px;">
 			<div class="col s12">
-				<textarea readonly id="inputTextToSave" style="height:200px"></textarea>
+				<p id="inputTextToSave" style="height:200px"></p>
 			</div>
 		</div>
 		<div class="row">
@@ -65,9 +65,11 @@
 				<input id="inputFileNameToSaveAs">.txt
 				<button class="btn waves-effect waves-light" onclick="saveTextAsFile()">存檔</button>
 			</div>
+		<button class="btn waves-effect waves-light" onclick="highlight()">亮</button>
 		</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script scr="js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/jq_highlight.js"></script>
+		<script src="js/materialize.min.js"></script>
 		<script src="js/main.js"></script>
 	</div>
 </body>

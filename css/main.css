@@ -25,3 +25,7 @@ img {
 	width: 100%;
 	overflow-x: auto;
 }
+
+.highlight {
+	background-color: yellow;
+}

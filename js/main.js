@@ -45,7 +45,11 @@ function loadFileAsText() {
 	var fileReader = new FileReader();
 	fileReader.onload = function(fileLoadedEvent) {
 		var textFromFileLoaded = fileLoadedEvent.target.result;
-		document.getElementById("inputTextToSave").value = textFromFileLoaded;
+		$("#inputTextToSave").text(textFromFileLoaded.toString());
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+function highlight() {
+	$('#inputTextToSave').highlight('get_user');
 }
