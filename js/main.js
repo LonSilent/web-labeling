@@ -17,6 +17,13 @@ function ShowSelection() {
 }
 
 function saveTextAsFile() {
+	var restore = document.getElementById("inputTextToSave").innerHTML;
+	//console.log(restore);
+	$('.name').replaceWith( "<name>" + $('.name').html() + "</name>");
+	$('.location').replaceWith( "<location>" + $('.location').html() + "</location>");
+	$('.date').replaceWith( "<date>" + $('.date').html() + "</date>");
+	$('.official').replaceWith( "<official>" + $('.official').html() + "</official>");
+
 	var textToWrite = document.getElementById("inputTextToSave").innerHTML;
 	var textFileAsBlob = new Blob([textToWrite], {
 		type: 'text/plain'
@@ -40,6 +47,11 @@ function saveTextAsFile() {
 	}
 
 	downloadLink.click();
+
+	$('name').replaceWith( "<span class=\"name\">" + $('name').html() + "</span>");
+	$('location').replaceWith( "<span class=\"location\">" + $('location').html() + "</span>");
+	$('date').replaceWith( "<span class=\"date\">" + $('date').html() + "</span>");
+	$('official').replaceWith( "<span class=\"official\">" + $('official').html() + "</span>");
 }
 
 function destroyClickedElement(event) {
@@ -79,7 +91,7 @@ $('#name').bind('input propertychange', function() {
 			"className": "name",
 		});
 	}
-	console.log(ToLabel.name)
+	// console.log(ToLabel.name)
 });
 
 $('#location').bind('input propertychange', function() {
@@ -95,7 +107,7 @@ $('#location').bind('input propertychange', function() {
 			"className": "location",
 		});
 	}
-	console.log(ToLabel.location);
+	// console.log(ToLabel.location);
 });
 
 $('#date').bind('input propertychange', function() {
@@ -111,7 +123,7 @@ $('#date').bind('input propertychange', function() {
 			"className": "date",
 		});
 	}
-	console.log(ToLabel.date);
+	// console.log(ToLabel.date);
 });
 
 $('#official').bind('input propertychange', function() {
@@ -127,5 +139,5 @@ $('#official').bind('input propertychange', function() {
 			"className": "official",
 		});
 	}
-	console.log(ToLabel.official);
+	//console.log(ToLabel.official);
 });
