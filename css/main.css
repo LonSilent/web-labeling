@@ -7,7 +7,6 @@ html {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-	overflow: hidden;
 	font-family: Arial, Droid Sans Fallback, "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", "標楷體", DFKai-SB, sans-serif;
 }
 
@@ -25,8 +24,20 @@ img {
 	overflow-x: auto;
 }
 
-.highlight {
+.name {
 	background-color: yellow;
+}
+
+.date {
+	background-color: blue;
+}
+
+.location {
+	background-color: orange;
+}
+
+.official {
+	background-color: gray;
 }
 
 #inputTextToSave {

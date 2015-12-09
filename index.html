@@ -62,14 +62,19 @@
 				</div>
 			</div>
 			<div class="col s6">
-				<p>另存新檔:</p>
-				<input id="inputFileNameToSaveAs">.txt
-				<button class="btn waves-effect waves-light" style="margin-left: 10px;" onclick="saveTextAsFile()">存檔</button>
+				<div class="row">
+					<p>另存新檔:</p>
+					<input id="inputFileNameToSaveAs">.txt
+					<button class="btn waves-effect waves-light" style="margin-left: 10px;" onclick="saveTextAsFile()">存檔</button>
+					<div class="col s3">
+						<button class="btn waves-effect waves-light" onclick="highlight_name()">亮</button>
+					</div>
+				</div>
 			</div>
-			<button class="btn waves-effect waves-light" onclick="highlight()">亮</button>
 		</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="js/jq_highlight.js"></script>
+		<script type="text/javascript" src="js/jquery.jmHighlight.min.js"></script>
 		<script src="js/materialize.min.js"></script>
 		<script src="js/main.js"></script>
 	</div>

@@ -51,6 +51,10 @@ function loadFileAsText() {
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
 
-function highlight() {
-	$('#inputTextToSave').highlight('8');
+function highlight_name() {
+	// $('#inputTextToSave').highlight('8');
+	$('#inputTextToSave').jmHighlight("8", {
+		"className": "highlight2",
+		"separateWordSearch": true,
+	});
 }
