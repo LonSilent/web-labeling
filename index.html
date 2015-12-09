@@ -9,9 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body class="page-wrapper">
+<body>
 	<nav>
-		<div class="nav-wrapper">
+		<div class="nav-wrapper" style="margin-left: 10px;">
 			<a class="brand-logo">Web Labeling</a>
 		</div>
 	</nav>
@@ -19,7 +19,7 @@
 		<div class="row" style="margin-top: 20px;">
 			<div class="col s12">
 				<h5>文字區</h5>
-				<p id="inputTextToSave" style="height:170px; overflow-y: auto;"></p>
+				<p id="inputTextToSave"></p>
 			</div>
 		</div>
 		<div class="row">
@@ -64,7 +64,7 @@
 			<div class="col s6">
 				<p>另存新檔:</p>
 				<input id="inputFileNameToSaveAs">.txt
-				<button class="btn waves-effect waves-light" onclick="saveTextAsFile()">存檔</button>
+				<button class="btn waves-effect waves-light" style="margin-left: 10px;"onclick="saveTextAsFile()">存檔</button>
 			</div>
 		</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
