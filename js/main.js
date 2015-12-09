@@ -10,7 +10,7 @@ function ShowSelection() {
 }
 
 function saveTextAsFile() {
-	var textToWrite = document.getElementById("inputTextToSave").value;
+	var textToWrite = document.getElementById("inputTextToSave").innerHTML;
 	var textFileAsBlob = new Blob([textToWrite], {
 		type: 'text/plain'
 	});
@@ -45,7 +45,7 @@ function loadFileAsText() {
 	var fileReader = new FileReader();
 	fileReader.onload = function(fileLoadedEvent) {
 		var textFromFileLoaded = fileLoadedEvent.target.result;
-		document.getElementById("inputTextToSave").value = textFromFileLoaded;
+		document.getElementById("inputTextToSave").innerHTML = textFromFileLoaded;
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
