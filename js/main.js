@@ -35,7 +35,7 @@ function saveTextAsFile() {
 	var textFileAsBlob = new Blob([textToWrite], {
 		type: 'text/plain'
 	});
-	var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+	var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value + ".txt";
 
 	var downloadLink = document.createElement("a");
 	downloadLink.download = fileNameToSaveAs;
