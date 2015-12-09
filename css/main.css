@@ -40,6 +40,22 @@ img {
 	background-color: #9CCC65;
 }
 
+.name-text {
+	color: #F06292;
+}
+
+.date-text {
+	color: #90A4AE;
+}
+
+.location-text {
+	color: #FFEE58;
+}
+
+.official-text {
+	color: #9CCC65;
+}
+
 #inputTextToSave {
 	height: 170px;
 	overflow-y: auto;

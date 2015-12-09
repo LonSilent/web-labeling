@@ -1,4 +1,11 @@
-var ToLabel = {
+var lastcommit = {
+	name: [],
+	location: [],
+	date: [],
+	official: []
+}
+
+var lines = {
 	name: [],
 	location: [],
 	date: [],
@@ -19,10 +26,10 @@ function ShowSelection() {
 function saveTextAsFile() {
 	var restore = document.getElementById("inputTextToSave").innerHTML;
 	//console.log(restore);
-	$('.name').replaceWith( "<name>" + $('.name').html() + "</name>");
-	$('.location').replaceWith( "<location>" + $('.location').html() + "</location>");
-	$('.date').replaceWith( "<date>" + $('.date').html() + "</date>");
-	$('.official').replaceWith( "<official>" + $('.official').html() + "</official>");
+	$('.name').replaceWith("<name>" + $('.name').html() + "</name>");
+	$('.location').replaceWith("<location>" + $('.location').html() + "</location>");
+	$('.date').replaceWith("<date>" + $('.date').html() + "</date>");
+	$('.official').replaceWith("<official>" + $('.official').html() + "</official>");
 
 	var textToWrite = document.getElementById("inputTextToSave").innerHTML;
 	var textFileAsBlob = new Blob([textToWrite], {
@@ -48,10 +55,10 @@ function saveTextAsFile() {
 
 	downloadLink.click();
 
-	$('name').replaceWith( "<span class=\"name\">" + $('name').html() + "</span>");
-	$('location').replaceWith( "<span class=\"location\">" + $('location').html() + "</span>");
-	$('date').replaceWith( "<span class=\"date\">" + $('date').html() + "</span>");
-	$('official').replaceWith( "<span class=\"official\">" + $('official').html() + "</span>");
+	$('name').replaceWith("<span class=\"name\">" + $('name').html() + "</span>");
+	$('location').replaceWith("<span class=\"location\">" + $('location').html() + "</span>");
+	$('date').replaceWith("<span class=\"date\">" + $('date').html() + "</span>");
+	$('official').replaceWith("<span class=\"official\">" + $('official').html() + "</span>");
 }
 
 function destroyClickedElement(event) {
@@ -70,74 +77,235 @@ function loadFileAsText() {
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
 
-function highlight_name() {
-	// $('#inputTextToSave').highlight('8');
-	$('#inputTextToSave').jmHighlight("8", {
-		"className": "highlight2",
-		"separateWordSearch": true,
-	});
-}
-
 $('#name').bind('input propertychange', function() {
 	var str = document.getElementById('name');
+	var compareRemove = lastcommit.name.slice();
+
+	if (str.value[str.value.length - 1] === "\n") {
+		str.value = str.value.substring(0, str.value.length - 1);
+	} else {
+
+	}
+
 	str.value = str.value + '\n';
-	//console.log(str.value);
-	$('#name').scrollTop($('#name').height());
-	var lines = $('#name').val().split(/\n/);
-	//console.log(lines);
-	if (/\S/.test(lines[lines.length - 2])) {
-		ToLabel.name.push(lines[lines.length - 2]);
-		$('#inputTextToSave').jmHighlight(lines[lines.length - 2], {
+	lines.name = $('#name').val().split(/\n/);
+
+	while (lines.name.indexOf("") > -1) {
+		var index = lines.name.indexOf("");
+		lines.name.splice(index, 1);
+	}
+
+	var compareAdd = lines.name.slice();
+
+	if (lastcommit.name.length > lines.name.length) {
+		console.log("remove!");
+		for (var i = 0; i < lines.name.length; i++) {
+			var findIndex1 = compareRemove.indexOf(lines.name[i]);
+			compareRemove.splice(findIndex1, 1);
+		}
+
+		var strRemove = compareRemove[0];
+
+		$("#inputTextToSave").jmRemoveHighlight({
+			"element": "span",
+			"className": "name"
+		}, strRemove);
+	}
+
+	lastcommit.name = lines.name.slice();
+
+	if (compareRemove.length < compareAdd.length) {
+		console.log("add!");
+		for (var i = 0; i < compareRemove.length; i++) {
+			console.log(compareAdd);
+			if (compareRemove.length == 0) {
+
+			} else {
+				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
+				compareAdd.splice(findIndex2, 1);
+			}
+		}
+		console.log(compareAdd);
+		var strAdd = compareAdd[0];
+
+		$('#inputTextToSave').jmHighlight(strAdd, {
 			"className": "name",
 		});
 	}
-	// console.log(ToLabel.name)
+	$('#name').scrollTop($('#name').height());
 });
 
 $('#location').bind('input propertychange', function() {
 	var str = document.getElementById('location');
+	var compareRemove = lastcommit.location.slice();
+
+	if (str.value[str.value.length - 1] === "\n") {
+		str.value = str.value.substring(0, str.value.length - 1);
+	} else {
+
+	}
+
 	str.value = str.value + '\n';
-	//console.log(str.value);
-	$('#name').scrollTop($('#location').height());
-	var lines = $('#location').val().split(/\n/);
-	//console.log(lines);
-	if (/\S/.test(lines[lines.length - 2])) {
-		ToLabel.location.push(lines[lines.length - 2]);
-		$('#inputTextToSave').jmHighlight(lines[lines.length - 2], {
+	lines.location = $('#location').val().split(/\n/);
+
+	while (lines.location.indexOf("") > -1) {
+		var index = lines.location.indexOf("");
+		lines.location.splice(index, 1);
+	}
+
+	var compareAdd = lines.location.slice();
+
+	if (lastcommit.location.length > lines.location.length) {
+		console.log("remove!");
+		for (var i = 0; i < lines.location.length; i++) {
+			var findIndex1 = compareRemove.indexOf(lines.location[i]);
+			compareRemove.splice(findIndex1, 1);
+		}
+
+		var strRemove = compareRemove[0];
+
+		$("#inputTextToSave").jmRemoveHighlight({
+			"element": "span",
+			"className": "location"
+		}, strRemove);
+	}
+
+	lastcommit.location = lines.location.slice();
+
+	if (compareRemove.length < compareAdd.length) {
+		console.log("add!");
+		for (var i = 0; i < compareRemove.length; i++) {
+			console.log(compareAdd);
+			if (compareRemove.length == 0) {
+
+			} else {
+				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
+				compareAdd.splice(findIndex2, 1);
+			}
+		}
+		console.log(compareAdd);
+		var strAdd = compareAdd[0];
+
+		$('#inputTextToSave').jmHighlight(strAdd, {
 			"className": "location",
 		});
 	}
+	$('#location').scrollTop($('#location').height());
 	// console.log(ToLabel.location);
 });
 
 $('#date').bind('input propertychange', function() {
 	var str = document.getElementById('date');
+	var compareRemove = lastcommit.date.slice();
+
+	if (str.value[str.value.length - 1] === "\n") {
+		str.value = str.value.substring(0, str.value.length - 1);
+	} else {
+
+	}
+
 	str.value = str.value + '\n';
-	//console.log(str.value);
-	$('#date').scrollTop($('#date').height());
-	var lines = $('#date').val().split(/\n/);
-	//console.log(lines);
-	if (/\S/.test(lines[lines.length - 2])) {
-		ToLabel.date.push(lines[lines.length - 2]);
-		$('#inputTextToSave').jmHighlight(lines[lines.length - 2], {
+	lines.date = $('#date').val().split(/\n/);
+
+	while (lines.date.indexOf("") > -1) {
+		var index = lines.date.indexOf("");
+		lines.date.splice(index, 1);
+	}
+
+	var compareAdd = lines.date.slice();
+
+	if (lastcommit.date.length > lines.date.length) {
+		console.log("remove!");
+		for (var i = 0; i < lines.date.length; i++) {
+			var findIndex1 = compareRemove.indexOf(lines.date[i]);
+			compareRemove.splice(findIndex1, 1);
+		}
+
+		var strRemove = compareRemove[0];
+
+		$("#inputTextToSave").jmRemoveHighlight({
+			"element": "span",
+			"className": "date"
+		}, strRemove);
+	}
+
+	lastcommit.date = lines.date.slice();
+
+	if (compareRemove.length < compareAdd.length) {
+		console.log("add!");
+		for (var i = 0; i < compareRemove.length; i++) {
+			console.log(compareAdd);
+			if (compareRemove.length == 0) {
+
+			} else {
+				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
+				compareAdd.splice(findIndex2, 1);
+			}
+		}
+		console.log(compareAdd);
+		var strAdd = compareAdd[0];
+
+		$('#inputTextToSave').jmHighlight(strAdd, {
 			"className": "date",
 		});
 	}
-	// console.log(ToLabel.date);
+	$('#date').scrollTop($('#date').height());
 });
 
 $('#official').bind('input propertychange', function() {
 	var str = document.getElementById('official');
+	var compareRemove = lastcommit.official.slice();
+
+	if (str.value[str.value.length - 1] === "\n") {
+		str.value = str.value.substring(0, str.value.length - 1);
+	} else {
+
+	}
+
 	str.value = str.value + '\n';
-	//console.log(str.value);
-	$('#official').scrollTop($('#official').height());
-	var lines = $('#official').val().split(/\n/);
-	//console.log(lines);
-	if (/\S/.test(lines[lines.length - 2])) {
-		ToLabel.official.push(lines[lines.length - 2]);
-		$('#inputTextToSave').jmHighlight(lines[lines.length - 2], {
+	lines.official = $('#official').val().split(/\n/);
+
+	while (lines.official.indexOf("") > -1) {
+		var index = lines.official.indexOf("");
+		lines.official.splice(index, 1);
+	}
+
+	var compareAdd = lines.official.slice();
+
+	if (lastcommit.official.length > lines.official.length) {
+		console.log("remove!");
+		for (var i = 0; i < lines.official.length; i++) {
+			var findIndex1 = compareRemove.indexOf(lines.official[i]);
+			compareRemove.splice(findIndex1, 1);
+		}
+
+		var strRemove = compareRemove[0];
+
+		$("#inputTextToSave").jmRemoveHighlight({
+			"element": "span",
+			"className": "official"
+		}, strRemove);
+	}
+
+	lastcommit.official = lines.official.slice();
+
+	if (compareRemove.length < compareAdd.length) {
+		console.log("add!");
+		for (var i = 0; i < compareRemove.length; i++) {
+			console.log(compareAdd);
+			if (compareRemove.length == 0) {
+
+			} else {
+				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
+				compareAdd.splice(findIndex2, 1);
+			}
+		}
+		console.log(compareAdd);
+		var strAdd = compareAdd[0];
+
+		$('#inputTextToSave').jmHighlight(strAdd, {
 			"className": "official",
 		});
 	}
-	//console.log(ToLabel.official);
+	$('#official').scrollTop($('#official').height());
 });
