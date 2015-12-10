@@ -12,24 +12,27 @@ var lines = {
 	official: []
 }
 
-function ShowSelection() {
-	var textComponent = document.getElementById('inputTextToSave');
-	var selectedText;
-	var startPos = textComponent.selectionStart;
-	var endPos = textComponent.selectionEnd;
-	selectedText = textComponent.value.substring(startPos, endPos)
-
-	console.log(selectedText);
-	//alert("You selected: " + selectedText);
-}
-
 function saveTextAsFile() {
-	var restore = document.getElementById("inputTextToSave").innerHTML;
-	//console.log(restore);
-	$('.name').replaceWith("<name>" + $('.name').html() + "</name>");
-	$('.location').replaceWith("<location>" + $('.location').html() + "</location>");
-	$('.date').replaceWith("<date>" + $('.date').html() + "</date>");
-	$('.official').replaceWith("<official>" + $('.official').html() + "</official>");
+	$('.name').replaceWith(function() {
+		return $("<name>", {
+			html: $(this).html()
+		});
+	})
+	$('.location').replaceWith(function() {
+		return $("<location>", {
+			html: $(this).html()
+		});
+	})
+	$('.date').replaceWith(function() {
+		return $("<date>", {
+			html: $(this).html()
+		});
+	})
+	$('.official').replaceWith(function() {
+		return $("<official>", {
+			html: $(this).html()
+		});
+	})
 
 	var textToWrite = document.getElementById("inputTextToSave").innerHTML;
 	var textFileAsBlob = new Blob([textToWrite], {
@@ -41,12 +44,8 @@ function saveTextAsFile() {
 	downloadLink.download = fileNameToSaveAs;
 	downloadLink.innerHTML = "Download File";
 	if (window.webkitURL != null) {
-		// Chrome allows the link to be clicked
-		// without actually adding it to the DOM.
 		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
 	} else {
-		// Firefox requires the link to be added to the DOM
-		// before it can be clicked.
 		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
 		downloadLink.onclick = destroyClickedElement;
 		downloadLink.style.display = "none";
@@ -54,11 +53,6 @@ function saveTextAsFile() {
 	}
 
 	downloadLink.click();
-
-	$('name').replaceWith("<span class=\"name\">" + $('name').html() + "</span>");
-	$('location').replaceWith("<span class=\"location\">" + $('location').html() + "</span>");
-	$('date').replaceWith("<span class=\"date\">" + $('date').html() + "</span>");
-	$('official').replaceWith("<span class=\"official\">" + $('official').html() + "</span>");
 }
 
 function destroyClickedElement(event) {
@@ -77,6 +71,36 @@ function loadFileAsText() {
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
 
+function Highlight(compareAdd, compareRemove, type) {
+	for (var i = 0; i < compareRemove.length; i++) {
+		if (compareRemove.length == 0) {
+
+		} else {
+			var findIndex2 = compareAdd.indexOf(compareRemove[i]);
+			compareAdd.splice(findIndex2, 1);
+		}
+	}
+	var strAdd = compareAdd[0];
+
+	$('#inputTextToSave').jmHighlight(strAdd, {
+		"className": type,
+	});
+}
+
+function removeHighlight(compareAdd, compareRemove, type) {
+	for (var i = 0; i < compareAdd.length; i++) {
+		var findIndex1 = compareRemove.indexOf(compareAdd[i]);
+		compareRemove.splice(findIndex1, 1);
+	}
+
+	var strRemove = compareRemove[0];
+
+	$("#inputTextToSave").jmRemoveHighlight({
+		"element": "span",
+		"className": type
+	}, strRemove);
+}
+
 $('#name').bind('input propertychange', function() {
 	var str = document.getElementById('name');
 	var compareRemove = lastcommit.name.slice();
@@ -86,7 +110,6 @@ $('#name').bind('input propertychange', function() {
 	} else {
 
 	}
-
 	str.value = str.value + '\n';
 	lines.name = $('#name').val().split(/\n/);
 
@@ -98,40 +121,16 @@ $('#name').bind('input propertychange', function() {
 	var compareAdd = lines.name.slice();
 
 	if (lastcommit.name.length > lines.name.length) {
-		console.log("remove!");
-		for (var i = 0; i < lines.name.length; i++) {
-			var findIndex1 = compareRemove.indexOf(lines.name[i]);
-			compareRemove.splice(findIndex1, 1);
-		}
-
-		var strRemove = compareRemove[0];
-
-		$("#inputTextToSave").jmRemoveHighlight({
-			"element": "span",
-			"className": "name"
-		}, strRemove);
+		removeHighlight(compareAdd, compareRemove, "name");
+		compareRemove = lastcommit.name.slice();
 	}
 
 	lastcommit.name = lines.name.slice();
 
 	if (compareRemove.length < compareAdd.length) {
-		console.log("add!");
-		for (var i = 0; i < compareRemove.length; i++) {
-			console.log(compareAdd);
-			if (compareRemove.length == 0) {
-
-			} else {
-				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
-				compareAdd.splice(findIndex2, 1);
-			}
-		}
-		console.log(compareAdd);
-		var strAdd = compareAdd[0];
-
-		$('#inputTextToSave').jmHighlight(strAdd, {
-			"className": "name",
-		});
+		Highlight(compareAdd, compareRemove, "name");
 	}
+
 	$('#name').scrollTop($('#name').height());
 });
 
@@ -156,42 +155,17 @@ $('#location').bind('input propertychange', function() {
 	var compareAdd = lines.location.slice();
 
 	if (lastcommit.location.length > lines.location.length) {
-		console.log("remove!");
-		for (var i = 0; i < lines.location.length; i++) {
-			var findIndex1 = compareRemove.indexOf(lines.location[i]);
-			compareRemove.splice(findIndex1, 1);
-		}
-
-		var strRemove = compareRemove[0];
-
-		$("#inputTextToSave").jmRemoveHighlight({
-			"element": "span",
-			"className": "location"
-		}, strRemove);
+		removeHighlight(compareAdd, compareRemove, "location");
+		compareRemove = lastcommit.location.slice();
 	}
 
 	lastcommit.location = lines.location.slice();
 
 	if (compareRemove.length < compareAdd.length) {
-		console.log("add!");
-		for (var i = 0; i < compareRemove.length; i++) {
-			console.log(compareAdd);
-			if (compareRemove.length == 0) {
-
-			} else {
-				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
-				compareAdd.splice(findIndex2, 1);
-			}
-		}
-		console.log(compareAdd);
-		var strAdd = compareAdd[0];
-
-		$('#inputTextToSave').jmHighlight(strAdd, {
-			"className": "location",
-		});
+		Highlight(compareAdd, compareRemove, "location");
 	}
 	$('#location').scrollTop($('#location').height());
-	// console.log(ToLabel.location);
+
 });
 
 $('#date').bind('input propertychange', function() {
@@ -215,39 +189,14 @@ $('#date').bind('input propertychange', function() {
 	var compareAdd = lines.date.slice();
 
 	if (lastcommit.date.length > lines.date.length) {
-		console.log("remove!");
-		for (var i = 0; i < lines.date.length; i++) {
-			var findIndex1 = compareRemove.indexOf(lines.date[i]);
-			compareRemove.splice(findIndex1, 1);
-		}
-
-		var strRemove = compareRemove[0];
-
-		$("#inputTextToSave").jmRemoveHighlight({
-			"element": "span",
-			"className": "date"
-		}, strRemove);
+		removeHighlight(compareAdd, compareRemove, "date");
+		compareRemove = lastcommit.date.slice();
 	}
 
 	lastcommit.date = lines.date.slice();
 
 	if (compareRemove.length < compareAdd.length) {
-		console.log("add!");
-		for (var i = 0; i < compareRemove.length; i++) {
-			console.log(compareAdd);
-			if (compareRemove.length == 0) {
-
-			} else {
-				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
-				compareAdd.splice(findIndex2, 1);
-			}
-		}
-		console.log(compareAdd);
-		var strAdd = compareAdd[0];
-
-		$('#inputTextToSave').jmHighlight(strAdd, {
-			"className": "date",
-		});
+		Highlight(compareAdd, compareRemove, "date");
 	}
 	$('#date').scrollTop($('#date').height());
 });
@@ -273,39 +222,14 @@ $('#official').bind('input propertychange', function() {
 	var compareAdd = lines.official.slice();
 
 	if (lastcommit.official.length > lines.official.length) {
-		console.log("remove!");
-		for (var i = 0; i < lines.official.length; i++) {
-			var findIndex1 = compareRemove.indexOf(lines.official[i]);
-			compareRemove.splice(findIndex1, 1);
-		}
-
-		var strRemove = compareRemove[0];
-
-		$("#inputTextToSave").jmRemoveHighlight({
-			"element": "span",
-			"className": "official"
-		}, strRemove);
+		removeHighlight(compareAdd, compareRemove, "official");
+		compareRemove = lastcommit.official.slice();
 	}
 
 	lastcommit.official = lines.official.slice();
 
 	if (compareRemove.length < compareAdd.length) {
-		console.log("add!");
-		for (var i = 0; i < compareRemove.length; i++) {
-			console.log(compareAdd);
-			if (compareRemove.length == 0) {
-
-			} else {
-				var findIndex2 = compareAdd.indexOf(compareRemove[i]);
-				compareAdd.splice(findIndex2, 1);
-			}
-		}
-		console.log(compareAdd);
-		var strAdd = compareAdd[0];
-
-		$('#inputTextToSave').jmHighlight(strAdd, {
-			"className": "official",
-		});
+		Highlight(compareAdd, compareRemove, "official");
 	}
 	$('#official').scrollTop($('#official').height());
 });
