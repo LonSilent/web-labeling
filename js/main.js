@@ -59,6 +59,10 @@ function destroyClickedElement(event) {
 	document.body.removeChild(event.target);
 }
 
+function replaceAlltag(str, find, replace) {
+	return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function loadFileAsText() {
 	var fileToLoad = document.getElementById("fileToLoad").files[0];
 
@@ -66,7 +70,16 @@ function loadFileAsText() {
 	fileReader.onload = function(fileLoadedEvent) {
 		var textFromFileLoaded = fileLoadedEvent.target.result;
 		$("#inputTextToSave").text(textFromFileLoaded.toString());
+		var replace = document.getElementById('inputTextToSave');
 
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;name&gt;', '<span class="name">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/name&gt;', '</span>');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;location&gt;', '<span class="location">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/location&gt;', '</span>');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;date&gt;', '<span class="date">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/date&gt;', '</span>');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;official&gt;', '<span class="official">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/official&gt;', '</span>');
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
