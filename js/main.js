@@ -43,8 +43,8 @@ function saveTextAsFile() {
 	var downloadLink = document.createElement("a");
 	downloadLink.download = fileNameToSaveAs;
 	downloadLink.innerHTML = "Download File";
-	if (window.webkitURL != null) {
-		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	if (window.URL != null) {
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
 	} else {
 		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
 		downloadLink.onclick = destroyClickedElement;
@@ -69,6 +69,10 @@ function loadFileAsText() {
 
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+function clearAll() {
+	location.reload();
 }
 
 function Highlight(compareAdd, compareRemove, type) {
