@@ -114,6 +114,9 @@ $('#name').bind('input propertychange', function() {
 	} else {
 
 	}
+	if (str.value[0] === '\n') {
+		str.value = str.value.substring(1);
+	}
 	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
 	str.value += '\n';
@@ -137,7 +140,7 @@ $('#name').bind('input propertychange', function() {
 		Highlight(compareAdd, compareRemove, "name");
 	}
 
-	$('#name').scrollTop($('#name').height());
+	$('#name').scrollTop($('#name').height() + 2000);
 });
 
 $('#location').bind('input propertychange', function() {
@@ -148,6 +151,9 @@ $('#location').bind('input propertychange', function() {
 		str.value = str.value.substring(0, str.value.length - 1);
 	} else {
 
+	}
+	if (str.value[0] === '\n') {
+		str.value = str.value.substring(1);
 	}
 	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
@@ -171,7 +177,7 @@ $('#location').bind('input propertychange', function() {
 	if (compareRemove.length < compareAdd.length) {
 		Highlight(compareAdd, compareRemove, "location");
 	}
-	$('#location').scrollTop($('#location').height());
+	$('#location').scrollTop($('#location').height() + 2000);
 
 });
 
@@ -183,6 +189,9 @@ $('#date').bind('input propertychange', function() {
 		str.value = str.value.substring(0, str.value.length - 1);
 	} else {
 
+	}
+	if (str.value[0] === '\n') {
+		str.value = str.value.substring(1);
 	}
 	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
@@ -206,7 +215,7 @@ $('#date').bind('input propertychange', function() {
 	if (compareRemove.length < compareAdd.length) {
 		Highlight(compareAdd, compareRemove, "date");
 	}
-	$('#date').scrollTop($('#date').height());
+	$('#date').scrollTop($('#date').height() + 2000);
 });
 
 $('#official').bind('input propertychange', function() {
@@ -217,6 +226,9 @@ $('#official').bind('input propertychange', function() {
 		str.value = str.value.substring(0, str.value.length - 1);
 	} else {
 
+	}
+	if (str.value[0] === '\n') {
+		str.value = str.value.substring(1);
 	}
 	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
@@ -240,5 +252,5 @@ $('#official').bind('input propertychange', function() {
 	if (compareRemove.length < compareAdd.length) {
 		Highlight(compareAdd, compareRemove, "official");
 	}
-	$('#official').scrollTop($('#official').height());
+	$('#official').scrollTop($('#official').height() + 2000);
 });
