@@ -114,7 +114,9 @@ $('#name').bind('input propertychange', function() {
 	} else {
 
 	}
-	str.value = str.value + '\n';
+	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
+
+	str.value += '\n';
 	lines.name = $('#name').val().split(/\n/);
 
 	while (lines.name.indexOf("") > -1) {
@@ -147,8 +149,9 @@ $('#location').bind('input propertychange', function() {
 	} else {
 
 	}
+	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
-	str.value = str.value + '\n';
+	str.value += '\n';
 	lines.location = $('#location').val().split(/\n/);
 
 	while (lines.location.indexOf("") > -1) {
@@ -181,8 +184,9 @@ $('#date').bind('input propertychange', function() {
 	} else {
 
 	}
+	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
-	str.value = str.value + '\n';
+	str.value += '\n';
 	lines.date = $('#date').val().split(/\n/);
 
 	while (lines.date.indexOf("") > -1) {
@@ -214,8 +218,9 @@ $('#official').bind('input propertychange', function() {
 	} else {
 
 	}
+	str.value = str.value.replace(/(\r\n|\r|\n){2}/g, '$1').replace(/(\r\n|\r|\n){3,}/g, '$1\n');
 
-	str.value = str.value + '\n';
+	str.value += '\n';
 	lines.official = $('#official').val().split(/\n/);
 
 	while (lines.official.indexOf("") > -1) {
