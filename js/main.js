@@ -72,14 +72,51 @@ function loadFileAsText() {
 		$("#inputTextToSave").text(textFromFileLoaded.toString());
 		var replace = document.getElementById('inputTextToSave');
 
-		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;name&gt;', '<span class="name">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;name&gt;', '<span class="name" data-jmhighlight="true">');
 		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/name&gt;', '</span>');
-		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;location&gt;', '<span class="location">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;location&gt;', '<span class="location" data-jmhighlight="true">');
 		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/location&gt;', '</span>');
-		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;date&gt;', '<span class="date">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;date&gt;', '<span class="date" data-jmhighlight="true">');
 		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/date&gt;', '</span>');
-		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;official&gt;', '<span class="official">');
+		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;official&gt;', '<span class="official" data-jmhighlight="true">');
 		replace.innerHTML = replaceAlltag(replace.innerHTML, '&lt;/official&gt;', '</span>');
+
+		$('.name').each(function() {
+			var temp = $(this).text();
+			if (lines.name.indexOf(temp) === -1) {
+				lines.name.push(temp);
+				lastcommit.name.push(temp);
+				var str = document.getElementById('name');
+				str.value += temp + '\n';
+			}
+		})
+		$('.date').each(function() {
+			var temp = $(this).text();
+			if (lines.date.indexOf(temp) === -1) {
+				lines.date.push(temp);
+				lastcommit.date.push(temp);
+				var str = document.getElementById('date');
+				str.value += temp + '\n';
+			}
+		})
+		$('.location').each(function() {
+			var temp = $(this).text();
+			if (lines.location.indexOf(temp) === -1) {
+				lines.location.push(temp);
+				lastcommit.location.push(temp);
+				var str = document.getElementById('location');
+				str.value += temp + '\n';
+			}
+		})
+		$('.official').each(function() {
+			var temp = $(this).text();
+			if (lines.official.indexOf(temp) === -1) {
+				lines.official.push(temp);
+				lastcommit.official.push(temp);
+				var str = document.getElementById('official');
+				str.value += temp + '\n';
+			}
+		})
 	};
 	fileReader.readAsText(fileToLoad, "UTF-8");
 }
@@ -111,9 +148,9 @@ function removeHighlight(compareAdd, compareRemove, type) {
 	}
 
 	var strRemove = compareRemove[0];
+	console.log(strRemove);
 
 	$("#inputTextToSave").jmRemoveHighlight({
-		"element": "span",
 		"className": type
 	}, strRemove);
 }
@@ -122,10 +159,8 @@ $('#name').bind('input propertychange', function() {
 	var str = document.getElementById('name');
 	var compareRemove = lastcommit.name.slice();
 
-	if (str.value[str.value.length - 1] === "\n") {
+	while (str.value[str.value.length - 1] === "\n") {
 		str.value = str.value.substring(0, str.value.length - 1);
-	} else {
-
 	}
 	if (str.value[0] === '\n') {
 		str.value = str.value.substring(1);
@@ -142,7 +177,8 @@ $('#name').bind('input propertychange', function() {
 
 	var compareAdd = lines.name.slice();
 
-	if (lastcommit.name.length > lines.name.length) {
+
+	if (compareRemove.length > compareAdd.length) {
 		removeHighlight(compareAdd, compareRemove, "name");
 		compareRemove = lastcommit.name.slice();
 	}
@@ -160,10 +196,8 @@ $('#location').bind('input propertychange', function() {
 	var str = document.getElementById('location');
 	var compareRemove = lastcommit.location.slice();
 
-	if (str.value[str.value.length - 1] === "\n") {
+	while (str.value[str.value.length - 1] === "\n") {
 		str.value = str.value.substring(0, str.value.length - 1);
-	} else {
-
 	}
 	if (str.value[0] === '\n') {
 		str.value = str.value.substring(1);
@@ -198,10 +232,8 @@ $('#date').bind('input propertychange', function() {
 	var str = document.getElementById('date');
 	var compareRemove = lastcommit.date.slice();
 
-	if (str.value[str.value.length - 1] === "\n") {
+	while (str.value[str.value.length - 1] === "\n") {
 		str.value = str.value.substring(0, str.value.length - 1);
-	} else {
-
 	}
 	if (str.value[0] === '\n') {
 		str.value = str.value.substring(1);
@@ -235,10 +267,8 @@ $('#official').bind('input propertychange', function() {
 	var str = document.getElementById('official');
 	var compareRemove = lastcommit.official.slice();
 
-	if (str.value[str.value.length - 1] === "\n") {
+	while (str.value[str.value.length - 1] === "\n") {
 		str.value = str.value.substring(0, str.value.length - 1);
-	} else {
-
 	}
 	if (str.value[0] === '\n') {
 		str.value = str.value.substring(1);
